@@ -1,0 +1,4 @@
+.venv/
+.DS_Store
+encord_api_key.json
+*.csv
