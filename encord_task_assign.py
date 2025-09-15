@@ -2,28 +2,28 @@ from encord import EncordUserClient
 import pandas as pd
 import random
 
-# Authenticate using your SSH private key
+# Authenticate SSH private key
 client = EncordUserClient.create_with_ssh_private_key(
-    ssh_private_key_path="/Users/sonia.yizerwe/.ssh/id_ed25519"  # Replace with your actual path if different
+    ssh_private_key_path="/Users/sonia.yizerwe/.ssh/id_ed25519"  
 )
 
-# Load your specific Encord project
+# Load Night Encord project
 project = client.get_project("28a20d28-376e-474b-939a-97b55f36bf60")
 
 # Get all label rows
 label_rows = project.get_label_rows_v2()
 
-# Get current user (optional auditing/logging)
+# Get current user 
 current_user = client.get_user()
 
 # Get all project users
 project_users = project.get_project_users()
 reviewers = [
     user for user in project_users
-    if user.get("email")  # Optional: filter by role if needed
+    if user.get("email")  
 ]
 
-# Assign reviewers while avoiding self-review
+# Assign reviewers while avoiding self review
 assigned = []
 skipped = []
 
