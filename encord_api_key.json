@@ -1,0 +1,6 @@
+cd "/Users/sonia.yizerwe/Desktop/DA 1/Encord projects/Task allocation/TASK assign"
+touch encord_api_key.json
+open -a "Visual Studio Code" encord_api_key.json
+{
+    "api_key": "190fbd4135dfd772eb5eaef23983b539c38de6e90708cb66e9c715c5f1a65116"
+  }
