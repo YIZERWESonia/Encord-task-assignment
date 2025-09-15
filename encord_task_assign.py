@@ -2,28 +2,28 @@ from encord import EncordUserClient
 import pandas as pd
 import random
 
-# Step 1: Authenticate using your downloaded API key
-client = EncordUserClient.create_with_api_key(
-    json_credentials_path="encord_api_key.json"
+# Authenticate using your SSH private key
+client = EncordUserClient.create_with_ssh_private_key(
+    ssh_private_key_path="/Users/sonia.yizerwe/.ssh/id_ed25519"  # Replace with your actual path if different
 )
 
-# Step 2: Load your specific Encord project
+# Load your specific Encord project
 project = client.get_project("28a20d28-376e-474b-939a-97b55f36bf60")
 
-# Step 3: Get all label rows
+# Get all label rows
 label_rows = project.get_label_rows_v2()
 
-# Step 4: Get current user (optional auditing/logging)
+# Get current user (optional auditing/logging)
 current_user = client.get_user()
 
-# Step 5: Get all project users (you can filter by role if needed)
+# Get all project users
 project_users = project.get_project_users()
 reviewers = [
     user for user in project_users
-    if user.get("email")  # Optional: Add role check if needed
+    if user.get("email")  # Optional: filter by role if needed
 ]
 
-# Step 6: Assign reviewers while avoiding self-review
+# Assign reviewers while avoiding self-review
 assigned = []
 skipped = []
 
@@ -69,7 +69,7 @@ for label_hash, data in label_rows.items():
             "reason": str(e)
         })
 
-# Step 7: Save logs
+# Save logs
 pd.DataFrame(assigned).to_csv("assigned_reviews.csv", index=False)
 pd.DataFrame(skipped).to_csv("skipped_reviews.csv", index=False)
 
